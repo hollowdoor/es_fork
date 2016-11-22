@@ -69,4 +69,6 @@ The most recent version of nodejs uses almost all of es2015. For this reason onl
 
 Sometime in the future the babel dependency will be removed from `es-fork` as well.
 
+If you want polyfills you should use *ponyfills* instead. Though most es2015 build-ins are supported by the latest node version.
+
 Happy coding!
