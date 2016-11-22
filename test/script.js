@@ -13,7 +13,7 @@ console.log('command ',command)
 function p(){
     return new Promise((resolve, reject)=>{
         setTimeout(()=>{
-            console.log('yippy!')
+            resolve('yippy!')
         })
     });
 }
