@@ -34,6 +34,7 @@ const cwd = process.cwd();
 
 function esSpawn(name, args=[], options={}){
     let source = path.join(cwd, name);
+    let filename = name.replace(/[.]\//, '');
     let argv = [].concat(args);
 
     let init = Promise.all([
@@ -56,12 +57,17 @@ function esSpawn(name, args=[], options={}){
                 format: 'cjs'
             }).code;
 
+            if(esSpawn.saveSource){
+                _writeFile(path.join(cwd, 'source.'+filename), code)
+                .catch((err)=>console.log(err));
+            }
+
             //Replace some globals to make things look normal.
             //The globals changed because the new script is in a tmp diractory.
             return code.replace(/(['"])use strict\1;/, function(){
                 return `'use strict';
                 __dirname="${cwd}";
-                __filename="${name.replace(/[.]\//, '')}";
+                __filename="${filename}";
                 process.argv.splice(1, 1, "${name}");
                 `;
             });

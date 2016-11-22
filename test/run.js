@@ -1,4 +1,5 @@
 let spawn = require('../');
+spawn.saveSource = true;
 
 spawn('./script.js').then(child=>{
     //process.stdin.pipe(child.stdin);
