@@ -9,3 +9,18 @@ console.log('process.cwd() ',process.cwd())
 console.log('process.argv ',process.argv)
 let [, command] = process.argv;
 console.log('command ',command)
+
+function p(){
+    return new Promise((resolve, reject)=>{
+        setTimeout(()=>{
+            console.log('yippy!')
+        })
+    });
+}
+async function myAsync(){
+
+    let val = await p();
+    console.log('success? ', val);
+}
+
+myAsync();

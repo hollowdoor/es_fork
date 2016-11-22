@@ -7,6 +7,7 @@ var fs = require('fs');
 var tmp = _interopDefault(require('tmp'));
 var rollup = _interopDefault(require('rollup'));
 var nodeResolve = _interopDefault(require('rollup-plugin-node-resolve'));
+var babel = _interopDefault(require('rollup-plugin-babel'));
 var path = _interopDefault(require('path'));
 
 function _writeFile(name, contents) {
@@ -271,7 +272,7 @@ function esSpawn(name) {
 
     var init = Promise.all([rollup.rollup({
         entry: source,
-        plugins: [nodeResolve({ jsnext: true, module: true })],
+        plugins: [nodeResolve({ jsnext: true, module: true }), babel({ plugins: ['transform-async-to-generator'] })],
         acorn: {
             allowHashBang: true
         },

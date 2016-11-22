@@ -6,6 +6,7 @@ import {
 } from './lib/myfs';
 import rollup from 'rollup';
 import nodeResolve from 'rollup-plugin-node-resolve';
+import babel from 'rollup-plugin-babel';
 import path from 'path';
 import tmp from 'tmp';
 const cwd = process.cwd();
@@ -19,7 +20,8 @@ export default function esSpawn(name, args=[], options={}){
         rollup.rollup({
             entry: source,
             plugins: [
-                nodeResolve({jsnext: true, module: true})
+                nodeResolve({jsnext: true, module: true}),
+                babel({plugins: ['transform-async-to-generator']})
             ],
             acorn: {
                 allowHashBang: true

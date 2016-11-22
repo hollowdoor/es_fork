@@ -3,6 +3,7 @@ import { readFile, writeFile } from 'fs';
 import tmp from 'tmp';
 import rollup from 'rollup';
 import nodeResolve from 'rollup-plugin-node-resolve';
+import babel from 'rollup-plugin-babel';
 import path from 'path';
 
 function _writeFile(name, contents) {
@@ -267,7 +268,7 @@ function esSpawn(name) {
 
     var init = Promise.all([rollup.rollup({
         entry: source,
-        plugins: [nodeResolve({ jsnext: true, module: true })],
+        plugins: [nodeResolve({ jsnext: true, module: true }), babel({ plugins: ['transform-async-to-generator'] })],
         acorn: {
             allowHashBang: true
         },
