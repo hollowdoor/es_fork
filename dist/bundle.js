@@ -32,7 +32,7 @@ function createTmp(){
 const cwd = process.cwd();
 
 
-function esSpawn(name, args=[], options={}){
+function esFork(name, args=[], options={}){
     let source = path.join(cwd, name);
     let filename = name.replace(/[.]\//, '');
     let argv = [].concat(args);
@@ -50,7 +50,7 @@ function esSpawn(name, args=[], options={}){
             onwarn: (warning)=>{
                 //No need for warnings.
                 //Try to act like a normal child process.
-                if(esSpawn.showWarning){
+                if(esFork.showWarning){
                     console.log(warning);
                 }
             }
@@ -76,7 +76,7 @@ process.argv.splice(1, 1, "${name}");
             //The globals changed because the new script is in a tmp diractory.
             code = code.replace(strictReg, head);
 
-            if(esSpawn.saveSource){
+            if(esFork.saveSource){
                 _writeFile(path.join(cwd, 'source.'+filename), code)
                 .catch((err)=>console.log(err));
             }
@@ -128,4 +128,4 @@ function createOptions(options, argv0){
     return options;
 }
 
-module.exports = esSpawn;
+module.exports = esFork;
