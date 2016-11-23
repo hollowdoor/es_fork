@@ -50,27 +50,39 @@ function esSpawn(name, args=[], options={}){
             onwarn: (warning)=>{
                 //No need for warnings.
                 //Try to act like a normal child process.
-                //console.log(warning)
+                if(esSpawn.showWarning){
+                    console.log(warning);
+                }
             }
         }).then(bundle=>{
             let code = bundle.generate({
                 format: 'cjs'
             }).code;
 
+            let strictReg = /^(['"])use strict\1;/;
+            let bangReg = /\n#[!][^\n]+?\n/;
+            let head = `'use strict';
+__dirname="${cwd}";
+__filename="${filename}";
+process.argv.splice(1, 1, "${name}");
+            `;
+
+            //Get rid of that pesky hash bang.
+            if(bangReg.test(code)){
+                code = code.replace(bangReg, '');
+            }
+
+            //Replace some globals to make things look normal.
+            //The globals changed because the new script is in a tmp diractory.
+            code = code.replace(strictReg, head);
+
             if(esSpawn.saveSource){
                 _writeFile(path.join(cwd, 'source.'+filename), code)
                 .catch((err)=>console.log(err));
             }
 
-            //Replace some globals to make things look normal.
-            //The globals changed because the new script is in a tmp diractory.
-            return code.replace(/(['"])use strict\1;/, function(){
-                return `'use strict';
-                __dirname="${cwd}";
-                __filename="${filename}";
-                process.argv.splice(1, 1, "${name}");
-                `;
-            });
+            return code;
+
         }),
         createTmp()
     ]);
