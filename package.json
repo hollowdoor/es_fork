@@ -1,6 +1,6 @@
 {
   "name": "es-fork",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Spawn modular javascript",
   "main": "dist/bundle.js",
   "jsnext:main": "dist/bundle.es.js",
