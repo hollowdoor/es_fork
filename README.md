@@ -45,6 +45,15 @@ fork('./script.js').then(child=>{
 });
 ```
 
+API
+---
+
+The interface for `es-fork` is identical to node's [child_process fork](https://nodejs.org/api/child_process.html#child_process_child_process_fork_modulepath_args_options).
+
+### fork(command, argv, options) -> child_process
+
+You can run the fork as if you were using `require('child_process').fork`.
+
 About
 -----
 
