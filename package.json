@@ -20,5 +20,20 @@
   },
   "devDependencies": {
     "babel-preset-es2015-rollup": "^1.2.0"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hollowdoor/es_fork.git"
+  },
+  "keywords": [
+    "fork",
+    "process"
+  ],
+  "bugs": {
+    "url": "https://github.com/hollowdoor/es_fork/issues"
+  },
+  "homepage": "https://github.com/hollowdoor/es_fork#readme"
 }
